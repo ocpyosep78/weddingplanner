@@ -6,65 +6,44 @@
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-	<script src="<?=base_url()?>resources/js/jquery-1.11.0.js"  type="text/javascript"> </script>
-    <script src="<?=base_url()?>resources/js/jquery-ui-1.10.3.min.js"  type="text/javascript"> </script>
+	<script src="../resources/js/jquery-1.11.0.js"  type="text/javascript"> </script>
+    <script src="../resources/js/jquery-ui-1.10.3.min.js"  type="text/javascript"> </script>
     <script type="text/javascript">
 		function generateTheSuggestionList(dataArray){
-                    
-                    var im_array = ["<?=base_url()?>resources/images/cat-flowers.jpg","<?=base_url()?>resources/images/cat-photography.jpg","<?=base_url()?>resources/images/cat-bands.jpg","<?=base_url()?>resources/images/cat-dressers.jpg"];
 			$(dataArray).each(function(){
-                                var ranno = Math.floor((Math.random() * 3) + 1);
-				var img = '<img src="'+im_array[ranno]+'"/>';
-				var desc = '<div class="result-description"><span><b>Category :</b> '+this.category+'</span><span><b>Vendor Name :</b> '+this.name+'</span><span><b>Price :</b> Rs.'+this.price+'/=</span></div>';
+				var img = '<img src="'+this.path+'"/>';
+				var desc = '<div class="result-description"><span><b>Category :</b> '+this.category+'</span><span><b>Vendor Name :</b> '+this.name+'</span><span><b>Tel :</b> '+this.tele+'</span><span><b>Price :</b> Rs.'+this.price+'/=</span></div>';
 				var mainTmplte = '<li class="result">'+img+''+desc+'</li>';
 				$("#result-container").append(mainTmplte);
 			});
 		}
 
 		$(document).ready(function(){
-			$("#filter").on("click",function(){
+			/*$("#filter").on("click",function(){
 				if($("#search_filter").css("display") == "none"){
 					$("#search_filter").fadeIn(200);
 				}else{
 					$("#search_filter").fadeOut(200);
 				}
-			});
+			});*/
 
 			$("#datepicker").datepicker();
 			$( "#accordion" ).accordion({heightStyle: "content"});
 			$("#user-name").html("Welcome "+sessionStorage.getItem("username"));
 
-			var sampleArray = [{path:"<?=base_url()?>resources/images/cat-flowers.jpg",category:"Florists",name:"George David",tele:"+9471544325",price:"45000"},{path:"../resources/images/cat-photography.jpg",category:"Photography",name:"Aveendra Manoj",tele:"+94715267523",price:"65000"},{path:"../resources/images/cat-bands.jpg",category:"Music Bands",name:"Chathura Sachithra",tele:"+94715267524",price:"85000"},{path:"../resources/images/cat-dressers.jpg",category:"Dressers",name:"Sachitha Suranjith",tele:"+94716767525",price:"78000"}];
-			/*$(".login-button").on("click",function(){
+			var sampleArray = [{path:"../resources/images/cat-flowers.jpg",category:"Florists",name:"George David",tele:"+9471544325",price:"45000"},{path:"../resources/images/cat-photography.jpg",category:"Photography",name:"Aveendra Manoj",tele:"+94715267523",price:"65000"},{path:"../resources/images/cat-bands.jpg",category:"Music Bands",name:"Chathura Sachithra",tele:"+94715267524",price:"85000"},{path:"../resources/images/cat-dressers.jpg",category:"Dressers",name:"Sachitha Suranjith",tele:"+94716767525",price:"78000"}];
+			$(".login-button").on("click",function(){
 				generateTheSuggestionList(sampleArray);
 				$("#accordion").fadeIn(200);
-			});*/
+			});
 		});
-                
-        <?php 
-     
-     if ($this->input->post('budget'))
-     {  
-         ?>
-         var addedbudget = <?php echo $this->input->post('budget'); ?>;
-         $.get("<?=base_url()?>index.php/budgetplan/index/"+addedbudget, function( data ) {
-            //$( ".result" ).html( data );
-            console.log(data);
-            generateTheSuggestionList(JSON.parse(data));
-            
-          });
-     <?php
-     } 
-     
-     
-     ?>                
-                
+                             
     </script>
 	<style type="text/css">
 		html,body{
 			padding: 0;
 			margin: 0;
-			background: url(<?=base_url()?>resources/images/bg-gradient-sand.png) repeat-x 0 0,url(<?=base_url()?>resources/images/bg-sand.png) repeat 0 0,#F5F1E8;
+			background: url(../resources/images/bg-gradient-sand.png) repeat-x 0 0,url(../resources/images/bg-sand.png) repeat 0 0,#F5F1E8;
 		}
 		#main-container{
 			width: 1200px;
@@ -212,7 +191,8 @@
 
 		#search_results{
 			width: 940px;
-			float: left; 
+			float: left;
+			margin-bottom: 
 		}
 
 		#result-container{
@@ -223,7 +203,7 @@
 		}
 
 		#result-container li{
-			width: 200px;
+			width: 285px;
 			height: 280px;
 			margin-top: 12px;
 			margin-left: 12px;
@@ -308,21 +288,45 @@
 			text-shadow: 0 1px 0 rgba(49, 49, 49, 0.75);
 		}
 
+                #text_body {
+                    width: 640px;
+                    height: 360px;
+                    margin-left: 50px;
+                    position: absolute;
+                    top: 60px;
+                    padding: 10px;
+                    border-radius: 4px;
+                    background-color: white;
+                    font:inherit;
+                    text-align: justify;
+                }
 	</style>
 </head>
 <body>
 <div id="dummy-header"></div>
 <div id="main-container">
 	<div id="actual-header">
-		<div id="main-title"><img src="<?=base_url()?>resources/images/rings.png">Wedding Planner</div>
+		<div id="main-title"><img src="../resources/images/rings.png">Wedding Planner</div>
 		<div id="filter">
-			<img src="<?=base_url()?>resources/images/filter-ico.png">
+			<img src="../resources/images/filter-ico.png">
 		</div>
 		<div id="user-name"></div>
 	</div>
+    
+    <div id="text_body">
+		
+        <p>
+            A common form of lorem ipsum reads:
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Another version uses the word "adipisici" rather than "adipisicing" (the digraph ng at the end of the word being alien to classical Latin). Others include additional words to add variety and prevent repeated verses from word-wrapping on the same phrases.
+        </p>
+		
+	</div>
+    
 	<div id="search_filter">
-            <form action="<?php echo site_url('searchplan/index');?>" method="post" role="form"  >
-                <input type="number" name="budget" class="login-inputs" <?php if ($this->input->post('budget')){ echo 'value="'.$this->input->post('budget').'"';} else { ?> placeholder="Enter your budget" <?php } ?>/>
+             <form action="<?php echo site_url('searchplan/index');?>" method="post" role="form"  >
+		<input type="number" name="budget" class="login-inputs" placeholder="Enter your budget"/>
 		<select id="area-selection">
 			<option>Colombo</option>
 			<option>Kurunegala</option>
@@ -332,29 +336,10 @@
 		</select>
 		<input id="datepicker" type="text"  style="margin-top:20px;" class="login-inputs" placeholder="Enter your wedding date"/>
 		<input type="submit" name="submit" value="Find" class="login-button">
-            </form>
+             </form>
 	</div>
 
-	<div id="search_results">
-		<ul id="result-container"></ul>
-	</div>
-	<div id="suggestion_list">
-		<div id="accordion" >
-                     <?php for($i=0;$i<count($vender_type_list);$i++){
-                     ?>
-                                    <h3><?php echo $vender_type_list[$i]['strName']; ?></h3>
-                                    <div>
-                                        <?php for($j=0;$j<count($vender_packages);$j++){
-                                                    if($vender_packages[$j]['intTypeID'] == $vender_type_list[$i]['id']){
-                                                        echo '<a href="#_">'.$vender_packages[$j]['strName'].'|'.$vender_packages[$j]['dPrice'].' ['.$vender_packages[$j]['strUserName'].']</a>';
-                                                    }
-                                        } ?>                                         
-                                    </div>                                    
-                    <?php } ?>
-  			
-
-  
-	</div>
+	
 </div>
 </div>
 </body>

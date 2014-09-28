@@ -86,7 +86,7 @@
 					var dataset = {username:""+userName+"",email:""+userEmail+"",pwd:"-1",origin:"fb"};
 					getData("http://localhost:1024/hackathon/index.php/userlogin/getUserCredentials",dataset);
 					sessionStorage.setItem("username",""+userName+"");
-					window.location.replace("http://localhost:1024/hackathon/index.php/searchplan");
+					window.location.replace("<?=base_url()?>index.php/homepage");
 				}
 			});
 		}
@@ -212,7 +212,8 @@
 		<input type="text" class="login-inputs" placeholder="User name"/>
 		<input type="password" class="login-inputs" placeholder="Password"/>
 		<button class="login-button">Login</button>
-		<button class="fb-button" onclick="checkFBlogin()">Login with FB</button>
+		<button class="fb-button" onclick="checkFBlogin()"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button></button>
 	</div>
 </div>
 </div>
