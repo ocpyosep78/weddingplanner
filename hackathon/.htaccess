@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /hackathon/
+
+RewriteCond %{REQUEST_URI} PIE.htc
+AddType text/x-component .htc
+RewriteRule (.*) static/PIE.htc [L]
+
+RewriteCond %{REQUEST_URI} !^/hackathon/resources/
+
+RewriteRule (.*)$ index.php [L]
